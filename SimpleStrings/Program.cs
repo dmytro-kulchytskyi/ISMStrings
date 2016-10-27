@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SimpleStrings
@@ -40,11 +41,11 @@ namespace SimpleStrings
                     flag = true;
                 }
             }
+            string pattern;
             string curword = "";
-            StringBuilder newtext = new StringBuilder(str);
             for (int i = 0; i <= k; i++)
             {
-               // Console.WriteLine(words[i]);
+                // Console.WriteLine(words[i] + "-");
                 if (words[i].Length > maxlen)
                 {
                     max = words[i];
@@ -56,11 +57,12 @@ namespace SimpleStrings
                     curword = words[i].ToString();
                     if (!((curword[j] >= 'A' && curword[j] <= 'Z') || (curword[j] >= 'a' && curword[j] <= 'z'))) flag = true;
                 }
-                if (!flag && curword != "") newtext.Replace(curword, "");
+                if (!flag && curword != "")
+                {
+                    pattern = @"(^|\W|[0-9])" + curword + @"(\W|[0-9]|$)";
+                    str = Regex.Replace(str, pattern, "$1$2");
+                }
             }
-
-
-
             if (count1 != count11)
             {
                 Console.WriteLine("Количество круглых открытых скобок: " + count1.ToString() + "\nКоличество круглых закрытых скобок: " + count11.ToString());
@@ -71,15 +73,9 @@ namespace SimpleStrings
                 Console.WriteLine("Количество открытых квадратных скобок: " + count2.ToString() + "\nКоличество закрытых квадратных скобок: " + count22.ToString());
             }
             else Console.WriteLine("С квадратными скобками все ок");
-
-
             Console.WriteLine("Самое длинное слово: " + max.ToString());
-
-
-
-            Console.WriteLine("Текст после обработки:\n" + newtext);
+            Console.WriteLine("Текст после обработки:\n" + str);
             Console.ReadKey();
-
 
         }
 
