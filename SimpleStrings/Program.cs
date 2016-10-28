@@ -20,19 +20,16 @@ namespace SimpleStrings
             for (int i = 0; i < str.Length / 2 + 1; i++)
                 words[i] = new StringBuilder();
             int count1 = 0, count11 = 0, count2 = 0, count22 = 0;
+            flag = false;
             for (int i = 0; i < str.Length; i++)
             {
                 if (str[i] == '(') count1++;
                 if (str[i] == ')') count11++;
                 if (str[i] == '[') count2++;
                 if (str[i] == ']') count22++;
-            }
-            flag = false;
-            for (int j = 0; j < str.Length; j++)
-            {
-                if (((str[j] >= 'A' && str[j] <= 'Z') || (str[j] >= 'a' && str[j] <= 'z') || (str[j] >= 'А' && str[j] <= 'Я') || (str[j] >= 'а' && str[j] <= 'я')))
+                if (((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'А' && str[i] <= 'Я') || (str[i] >= 'а' && str[i] <= 'я')))
                 {
-                    words[k].Append(str[j]);
+                    words[k].Append(str[i]);
                     flag = false;
                 }
                 else
@@ -64,19 +61,14 @@ namespace SimpleStrings
                 }
             }
             if (count1 != count11)
-            {
                 Console.WriteLine("Количество круглых открытых скобок: " + count1.ToString() + "\nКоличество круглых закрытых скобок: " + count11.ToString());
-            }
             else Console.WriteLine("С круглыми скобками все ок");
             if (count2 != count22)
-            {
                 Console.WriteLine("Количество открытых квадратных скобок: " + count2.ToString() + "\nКоличество закрытых квадратных скобок: " + count22.ToString());
-            }
             else Console.WriteLine("С квадратными скобками все ок");
             Console.WriteLine("Самое длинное слово: " + max.ToString());
             Console.WriteLine("Текст после обработки:\n" + str);
             Console.ReadKey();
-
         }
 
     }
